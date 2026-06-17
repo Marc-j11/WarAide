@@ -1,0 +1,12 @@
+id,nom,type,categorie,latitude,longitude
+1,Gare 9 Kilo,gare,transport,5.360252239662888,-3.9613339095910387
+2,Gare Petro-Ivoire,gare,transport,5.404328619382004,-3.9903428671235486
+3,Gare Maryse,gare,transport,5.37918680783553,-3.9717163918318126
+4,Gare Nouveau CHU,gare,transport,5.399816816221072,-3.9563526723244866
+5,Gare Château,gare,transport,5.4129293241776395,-3.9818116540066812
+6,Gare CNPS,gare,transport,5.38633832496205,-3.974481586551976
+7,Gare Rond-Point Palmeraie,gare,transport,5.364657005637662,-3.9596195702050356
+8,Gare Terminus Palmeraie,gare,transport,5.362719113847165,-3.958926124734985
+9,Gare Nouveau Goudron,gare,transport,5.374402721437125,-3.9288973745751266
+10,Point Relais Faya,point_relais,transport,5.370343763324578,-3.9385211248484797
+11,BEM Abidjan,ecole,destination,5.362849598828897,-3.967864356985905
