@@ -1,0 +1,15 @@
+# Node
+node_modules/
+
+# Build
+dist/
+build/
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# macOS
+.DS_Store
+**/.DS_Store
