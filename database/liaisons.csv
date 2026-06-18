@@ -1,40 +1,41 @@
-id,depart,arrivee,transport,prix,temps
 
-1,Gare 9 Kilo,Gare Petro-Ivoire,worowo,300,8
-2,Gare 9 Kilo,Gare Nouveau CHU,worowo,400,10
-3,Gare 9 Kilo,Gare Château,worowo,500,12
+id,depart,arrivee,transport,direction,prix,temps
 
-4,Gare Petro-Ivoire,Gare 9 Kilo,worowo,300,8
-5,Gare Petro-Ivoire,Gare Nouveau CHU,worowo,300,7
-6,Gare Petro-Ivoire,Gare Rond-Point Palmeraie,worowo,400,9
-7,Gare Petro-Ivoire,Gare Terminus Palmeraie,worowo,400,10
-8,Gare Petro-Ivoire,Gare Maryse,worowo,500,12
-9,Gare Petro-Ivoire,Gare CNPS,worowo,300,6
+1,Gare 9 Kilo,Gare Petro-Ivoire,worowo,Petro-Ivoire,300,8
+2,Gare 9 Kilo,Gare Nouveau CHU,worowo,Nouveau CHU,400,10
+3,Gare 9 Kilo,Gare Château,worowo,Château,500,12
 
-10,Gare Rond-Point Palmeraie,Gare Nouveau CHU,worowo,500,11
-11,Gare Rond-Point Palmeraie,Gare Petro-Ivoire,worowo,400,9
-12,Gare Rond-Point Palmeraie,Gare Château,worowo,500,12
+4,Gare Petro-Ivoire,Gare 9 Kilo,worowo,9 Kilo,300,8
+5,Gare Petro-Ivoire,Gare Nouveau CHU,worowo,Nouveau CHU,300,7
+6,Gare Petro-Ivoire,Gare Rond-Point Palmeraie,worowo,Rond-Point Palmeraie,400,9
+7,Gare Petro-Ivoire,Gare Terminus Palmeraie,worowo,Terminus Palmeraie,400,10
+8,Gare Petro-Ivoire,Gare Maryse,worowo,Maryse,500,12
+9,Gare Petro-Ivoire,Gare CNPS,worowo,CNPS,300,6
 
-13,Gare Maryse,Gare 9 Kilo,worowo,600,15
-14,Gare Maryse,Gare Terminus Palmeraie,worowo,300,7
-15,Gare Maryse,BEM Abidjan,worowo,300,5
+10,Gare Rond-Point Palmeraie,Gare Nouveau CHU,worowo,Nouveau CHU,500,11
+11,Gare Rond-Point Palmeraie,Gare Petro-Ivoire,worowo,Petro-Ivoire,400,9
+12,Gare Rond-Point Palmeraie,Gare Château,worowo,Château,500,12
 
-16,Gare Terminus Palmeraie,Gare Nouveau CHU,worowo,500,11
-17,Gare Terminus Palmeraie,Gare Petro-Ivoire,worowo,400,10
-18,Gare Terminus Palmeraie,Gare Château,worowo,500,12
+13,Gare Maryse,Gare 9 Kilo,worowo,9 Kilo,600,15
+14,Gare Maryse,Gare Terminus Palmeraie,worowo,Terminus Palmeraie,300,7
+15,Gare Maryse,BEM Abidjan,worowo,BEM Abidjan,300,5
 
-19,Gare Nouveau Goudron,Gare Nouveau CHU,worowo,600,15
+16,Gare Terminus Palmeraie,Gare Nouveau CHU,worowo,Nouveau CHU,500,11
+17,Gare Terminus Palmeraie,Gare Petro-Ivoire,worowo,Petro-Ivoire,400,10
+18,Gare Terminus Palmeraie,Gare Château,worowo,Château,500,12
 
-20,Gare Château,Gare Nouveau CHU,worowo,300,6
-21,Gare Château,Gare Petro-Ivoire,worowo,400,8
-22,Gare Château,Gare Rond-Point Palmeraie,worowo,500,12
-23,Gare Château,Gare Terminus Palmeraie,worowo,500,11
+19,Gare Nouveau Goudron,Gare Nouveau CHU,worowo,Nouveau CHU,600,15
 
-24,Gare CNPS,Gare Maryse,worowo,300,7
-25,Gare CNPS,Gare Terminus Palmeraie,worowo,500,12
-26,Gare CNPS,Gare 9 Kilo,worowo,600,15
+20,Gare Château,Gare Nouveau CHU,worowo,Nouveau CHU,300,6
+21,Gare Château,Gare Petro-Ivoire,worowo,Petro-Ivoire,400,8
+22,Gare Château,Gare Rond-Point Palmeraie,worowo,Rond-Point Palmeraie,500,12
+23,Gare Château,Gare Terminus Palmeraie,worowo,Terminus Palmeraie,500,11
 
-27,Gare Nouveau Goudron,Gare Terminus Palmeraie,gbaka,700,18
-28,Gare Nouveau Goudron,Point Relais Faya,gbaka,300,8
+24,Gare CNPS,Gare Maryse,worowo,Maryse,300,7
+25,Gare CNPS,Gare Terminus Palmeraie,worowo,Terminus Palmeraie,500,12
+26,Gare CNPS,Gare 9 Kilo,worowo,9 Kilo,600,15
 
-29,Point Relais Faya,Gare Terminus Palmeraie,gbaka,400,10
+27,Gare Nouveau Goudron,Gare Terminus Palmeraie,gbaka,Terminus Palmeraie,700,18
+28,Gare Nouveau Goudron,Point Relais Faya,gbaka,Point Relais Faya,300,8
+
+29,Point Relais Faya,Gare Terminus Palmeraie,gbaka,Terminus Palmeraie,400,10
