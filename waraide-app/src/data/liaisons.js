@@ -1,0 +1,33 @@
+const liaisons = [
+	{ id: 1, depart: 'Gare 9 Kilo', arrivee: 'Gare Petro-Ivoire', transport: 'worowo', direction: 'Petro-Ivoire', prix: 300, temps: 8 },
+	{ id: 2, depart: 'Gare 9 Kilo', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 400, temps: 10 },
+	{ id: 3, depart: 'Gare 9 Kilo', arrivee: 'Gare Château', transport: 'worowo', direction: 'Château', prix: 500, temps: 12 },
+	{ id: 4, depart: 'Gare Petro-Ivoire', arrivee: 'Gare 9 Kilo', transport: 'worowo', direction: '9 Kilo', prix: 300, temps: 8 },
+	{ id: 5, depart: 'Gare Petro-Ivoire', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 300, temps: 7 },
+	{ id: 6, depart: 'Gare Petro-Ivoire', arrivee: 'Gare Rond-Point Palmeraie', transport: 'worowo', direction: 'Rond-Point Palmeraie', prix: 400, temps: 9 },
+	{ id: 7, depart: 'Gare Petro-Ivoire', arrivee: 'Gare Terminus Palmeraie', transport: 'worowo', direction: 'Terminus Palmeraie', prix: 400, temps: 10 },
+	{ id: 8, depart: 'Gare Petro-Ivoire', arrivee: 'Gare Maryse', transport: 'worowo', direction: 'Maryse', prix: 500, temps: 12 },
+	{ id: 9, depart: 'Gare Petro-Ivoire', arrivee: 'Gare CNPS', transport: 'worowo', direction: 'CNPS', prix: 300, temps: 6 },
+	{ id: 10, depart: 'Gare Rond-Point Palmeraie', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 500, temps: 11 },
+	{ id: 11, depart: 'Gare Rond-Point Palmeraie', arrivee: 'Gare Petro-Ivoire', transport: 'worowo', direction: 'Petro-Ivoire', prix: 400, temps: 9 },
+	{ id: 12, depart: 'Gare Rond-Point Palmeraie', arrivee: 'Gare Château', transport: 'worowo', direction: 'Château', prix: 500, temps: 12 },
+	{ id: 13, depart: 'Gare Maryse', arrivee: 'Gare 9 Kilo', transport: 'worowo', direction: '9 Kilo', prix: 600, temps: 15 },
+	{ id: 14, depart: 'Gare Maryse', arrivee: 'Gare Terminus Palmeraie', transport: 'worowo', direction: 'Terminus Palmeraie', prix: 300, temps: 7 },
+	{ id: 15, depart: 'Gare Maryse', arrivee: 'BEM Abidjan', transport: 'worowo', direction: 'BEM Abidjan', prix: 300, temps: 5 },
+	{ id: 16, depart: 'Gare Terminus Palmeraie', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 500, temps: 11 },
+	{ id: 17, depart: 'Gare Terminus Palmeraie', arrivee: 'Gare Petro-Ivoire', transport: 'worowo', direction: 'Petro-Ivoire', prix: 400, temps: 10 },
+	{ id: 18, depart: 'Gare Terminus Palmeraie', arrivee: 'Gare Château', transport: 'worowo', direction: 'Château', prix: 500, temps: 12 },
+	{ id: 19, depart: 'Gare Nouveau Goudron', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 600, temps: 15 },
+	{ id: 20, depart: 'Gare Château', arrivee: 'Gare Nouveau CHU', transport: 'worowo', direction: 'Nouveau CHU', prix: 300, temps: 6 },
+	{ id: 21, depart: 'Gare Château', arrivee: 'Gare Petro-Ivoire', transport: 'worowo', direction: 'Petro-Ivoire', prix: 400, temps: 8 },
+	{ id: 22, depart: 'Gare Château', arrivee: 'Gare Rond-Point Palmeraie', transport: 'worowo', direction: 'Rond-Point Palmeraie', prix: 500, temps: 12 },
+	{ id: 23, depart: 'Gare Château', arrivee: 'Gare Terminus Palmeraie', transport: 'worowo', direction: 'Terminus Palmeraie', prix: 500, temps: 11 },
+	{ id: 24, depart: 'Gare CNPS', arrivee: 'Gare Maryse', transport: 'worowo', direction: 'Maryse', prix: 300, temps: 7 },
+	{ id: 25, depart: 'Gare CNPS', arrivee: 'Gare Terminus Palmeraie', transport: 'worowo', direction: 'Terminus Palmeraie', prix: 500, temps: 12 },
+	{ id: 26, depart: 'Gare CNPS', arrivee: 'Gare 9 Kilo', transport: 'worowo', direction: '9 Kilo', prix: 600, temps: 15 },
+	{ id: 27, depart: 'Gare Nouveau Goudron', arrivee: 'Gare Terminus Palmeraie', transport: 'gbaka', direction: 'Terminus Palmeraie', prix: 700, temps: 18 },
+	{ id: 28, depart: 'Gare Nouveau Goudron', arrivee: 'Point Relais Faya', transport: 'gbaka', direction: 'Point Relais Faya', prix: 300, temps: 8 },
+	{ id: 29, depart: 'Point Relais Faya', arrivee: 'Gare Terminus Palmeraie', transport: 'gbaka', direction: 'Terminus Palmeraie', prix: 400, temps: 10 }
+];
+
+export default liaisons;
