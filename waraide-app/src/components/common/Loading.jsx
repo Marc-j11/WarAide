@@ -1,6 +1,5 @@
 import React from 'react';
-import './Loading.css';
 
-export default function Loading() {
-  return <div className="wa-loading">Chargement...</div>;
+export default function Loading({ label = 'Chargement…' }) {
+  return <div className="wa-loading">{label}</div>;
 }

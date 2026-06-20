@@ -1,11 +1,13 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './Navbar.jsx';
 
 export default function Layout({ children }) {
   return (
     <div className="wa-app">
-      <Navbar />
-      <main>{children}</main>
+      <div className="wa-phone">
+        <div className="wa-content">{children}</div>
+        <Navbar />
+      </div>
     </div>
   );
 }

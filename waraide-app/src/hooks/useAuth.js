@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext.jsx';
 
 export default function useAuth() {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    // placeholder: check auth
-  }, []);
-  return { user, setUser };
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth doit être utilisé dans <AuthProvider>');
+  return ctx;
 }

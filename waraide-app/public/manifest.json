@@ -1,0 +1,22 @@
+{
+  "name": "WarAide",
+  "short_name": "WarAide",
+  "description": "Trouvez votre trajet en woro-woro et gbaka à Abidjan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14141C",
+  "theme_color": "#FF7A1A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
