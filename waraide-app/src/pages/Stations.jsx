@@ -1,30 +1,70 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StationContext } from '../context/StationContext.jsx';
 import useGeolocation from '../hooks/useGeolocation.js';
-import useStations from '../hooks/useStations.js';
+import api from '../services/api.js';
+import { haversine } from '../utils/distance.js';
 import StationCard from '../components/cards/StationCard.jsx';
 import MapBox from '../components/MapBox.jsx';
 import Loading from '../components/common/Loading.jsx';
 
 export default function Stations() {
   const navigate = useNavigate();
-  const { selectedDestination } = useContext(StationContext);
-  const { position, loading, error } = useGeolocation();
+  const { selectedDestination, liaisons, stations: ctxStations } = useContext(StationContext);
+  const { position, loading: geoLoading, error } = useGeolocation();
+  const [stations, setStations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Si pas de position GPS, on prend la destination comme point de référence
   const refPosition =
     position ||
-    (selectedDestination
+    (selectedDestination?.latitude != null
       ? {
           latitude: selectedDestination.latitude,
           longitude: selectedDestination.longitude,
         }
       : null);
 
-  const { stations, liaisons } = useStations(refPosition);
+  useEffect(() => {
+    let cancelled = false;
 
-  // Détermine les transports disponibles pour chaque station
+    async function load() {
+      setLoading(true);
+
+      if (refPosition && api.isConfigured()) {
+        const nearby = await api.getGaresProches(
+          refPosition.latitude,
+          refPosition.longitude
+        );
+        if (!cancelled && nearby?.length) {
+          setStations(nearby);
+          setLoading(false);
+          return;
+        }
+      }
+
+      if (!cancelled) {
+        const sorted = refPosition
+          ? ctxStations
+              .map((s) => ({
+                ...s,
+                distance: haversine(
+                  { lat: refPosition.latitude, lng: refPosition.longitude },
+                  { lat: s.latitude, lng: s.longitude }
+                ),
+              }))
+              .sort((a, b) => a.distance - b.distance)
+          : ctxStations.map((s) => ({ ...s, distance: null }));
+        setStations(sorted);
+        setLoading(false);
+      }
+    }
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [refPosition, ctxStations]);
+
   const stationsWithTransports = stations.map((s) => {
     const out = liaisons.filter((l) => l.depart === s.nom);
     const transports = Array.from(new Set(out.map((l) => l.transport)));
@@ -55,7 +95,7 @@ export default function Stations() {
           }))}
         />
 
-        {loading && <Loading label="Localisation en cours…" />}
+        {(geoLoading || loading) && <Loading label="Localisation en cours…" />}
         {error && (
           <p style={{ fontSize: 12, color: 'var(--wa-text-muted)' }}>
             Géolocalisation indisponible ({error}) — affichage par défaut.
