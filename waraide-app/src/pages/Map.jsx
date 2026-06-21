@@ -1,22 +1,59 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StationContext } from '../context/StationContext.jsx';
 import MapBox from '../components/MapBox.jsx';
 import Card from '../components/Card.jsx';
 import Button from '../components/common/Button.jsx';
+import RouteCard from '../components/cards/RouteCard.jsx';
+import { formatPrice, formatDuration } from '../utils/formatters.js';
 
 export default function Map() {
   const navigate = useNavigate();
-  const { stations, selectedDestination } = useContext(StationContext);
+  const location = useLocation();
+  const { stations, points, selectedDestination } = useContext(StationContext);
 
-  // Projette quelques stations sur la fausse carte
-  const points = stations.slice(0, 5).map((s, i) => ({
-    x: 40 + i * 55,
-    y: 60 + (i % 2) * 60,
-    r: 6,
-    color: i === 0 ? 'var(--wa-green)' : i === 4 ? 'var(--wa-red)' : 'var(--wa-blue)',
-    label: i === 0 ? s.nom : undefined,
-  }));
+  const { route, from, to } = location.state || {};
+  const hasRoute = route?.found && route.steps?.length > 0;
+
+  const routePoints = hasRoute
+    ? route.steps.flatMap((step, i) => {
+        const pts = [];
+        if (i === 0) pts.push(step.from);
+        pts.push(step.to);
+        return pts;
+      })
+    : [];
+
+  const uniqueNames = [...new Set(routePoints)];
+  const geoPoints = uniqueNames
+    .map((nom) => points.find((p) => p.nom === nom))
+    .filter(Boolean)
+    .filter((p) => p.latitude != null);
+
+  const mapDots = hasRoute && geoPoints.length >= 2
+    ? geoPoints.map((s, i) => ({
+        x: 30 + (i / Math.max(geoPoints.length - 1, 1)) * 220,
+        y: 50 + (i % 2) * 40,
+        r: 6,
+        color:
+          i === 0
+            ? 'var(--wa-green)'
+            : i === geoPoints.length - 1
+              ? 'var(--wa-red)'
+              : 'var(--wa-blue)',
+        label: i === 0 || i === geoPoints.length - 1 ? s.nom.replace('Gare ', '') : undefined,
+      }))
+    : stations.slice(0, 5).map((s, i) => ({
+        x: 40 + i * 55,
+        y: 60 + (i % 2) * 60,
+        r: 6,
+        color: i === 0 ? 'var(--wa-green)' : i === 4 ? 'var(--wa-red)' : 'var(--wa-blue)',
+        label: i === 0 ? s.nom : undefined,
+      }));
+
+  const pathD = mapDots.length >= 2
+    ? `M${mapDots[0].x} ${mapDots[0].y} ${mapDots.slice(1).map((p) => `L${p.x} ${p.y}`).join(' ')}`
+    : 'M40 220 Q90 180 140 140 Q200 90 260 40';
 
   return (
     <>
@@ -24,15 +61,11 @@ export default function Map() {
         <button className="wa-back" onClick={() => navigate(-1)}>
           <i className="ti ti-chevron-left" />
         </button>
-        <h1>Carte</h1>
+        <h1>{hasRoute ? `${from} → ${to}` : 'Carte'}</h1>
       </div>
 
       <div className="wa-body">
-        <MapBox
-          height={280}
-          paths={['M40 220 Q90 180 140 140 Q200 90 260 40']}
-          points={points}
-        >
+        <MapBox height={280} paths={[pathD]} points={mapDots}>
           <div
             style={{
               position: 'absolute',
@@ -51,15 +84,31 @@ export default function Map() {
           </div>
         </MapBox>
 
-        {selectedDestination && (
-          <Card>
-            <p style={{ fontSize: 14, fontWeight: 500, margin: '0 0 4px' }}>
-              Destination · {selectedDestination.nom}
-            </p>
-            <p style={{ fontSize: 12, color: 'var(--wa-text-muted)', margin: 0 }}>
-              ~45 min · 500 F CFA · 2 correspondances
-            </p>
-          </Card>
+        {hasRoute ? (
+          <>
+            <Card>
+              <p style={{ fontSize: 14, fontWeight: 500, margin: '0 0 4px' }}>
+                Itinéraire · {route.steps.length} étape(s)
+              </p>
+              <p style={{ fontSize: 12, color: 'var(--wa-text-muted)', margin: 0 }}>
+                ~{formatDuration(route.total.temps)} · {formatPrice(route.total.prix)}
+              </p>
+            </Card>
+            {route.steps.map((step, i) => (
+              <RouteCard key={i} step={step} />
+            ))}
+          </>
+        ) : (
+          selectedDestination && (
+            <Card>
+              <p style={{ fontSize: 14, fontWeight: 500, margin: '0 0 4px' }}>
+                Destination · {selectedDestination.nom}
+              </p>
+              <p style={{ fontSize: 12, color: 'var(--wa-text-muted)', margin: 0 }}>
+                Lancez une recherche pour afficher un itinéraire
+              </p>
+            </Card>
+          )
         )}
 
         <Button icon="ti-navigation">Démarrer la navigation</Button>

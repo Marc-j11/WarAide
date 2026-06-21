@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/common/Input.jsx';
 import Button from '../components/common/Button.jsx';
 import MapBox from '../components/MapBox.jsx';
 import api from '../services/api.js';
+import { StationContext } from '../context/StationContext.jsx';
 
 const categories = [
   { id: 'ecole', label: 'École / Univ.' },
@@ -13,6 +14,7 @@ const categories = [
 
 export default function AddEstablishment() {
   const navigate = useNavigate();
+  const { reloadData } = useContext(StationContext);
   const [form, setForm] = useState({ nom: '', quartier: '', categorie: 'ecole' });
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -24,6 +26,7 @@ export default function AddEstablishment() {
     setSubmitting(true);
     try {
       await api.submitEstablishment(form);
+      await reloadData();
       setDone(true);
     } finally {
       setSubmitting(false);

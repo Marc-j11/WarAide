@@ -6,21 +6,28 @@ import Button from '../components/common/Button.jsx';
 import Input from '../components/common/Input.jsx';
 import Card from '../components/Card.jsx';
 
+const CRITERES = [
+  { id: 'temps', label: 'Plus rapide', icon: 'ti-clock' },
+  { id: 'prix', label: 'Moins cher', icon: 'ti-coin' },
+];
+
 export default function Search() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { selectedDestination, stations } = useContext(StationContext);
+  const { selectedDestination, stations, points } = useContext(StationContext);
 
   const [depart, setDepart] = useState('');
   const [arrivee, setArrivee] = useState(selectedDestination?.nom || '');
+  const [critere, setCritere] = useState('temps');
 
-  const suggestions = ['Plateau', 'Adjamé', 'Yopougon', 'Marcory'];
+  const suggestions = ['Gare 9 Kilo', 'Gare Petro-Ivoire', 'BEM Abidjan'];
 
   const handleSearch = () => {
     const from = depart.trim() || stations[0]?.nom;
     const to = arrivee.trim() || selectedDestination?.nom;
     if (!from || !to) return;
-    navigate(`/result?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+    const qs = new URLSearchParams({ from, to, critere });
+    navigate(`/result?${qs.toString()}`);
   };
 
   return (
@@ -77,10 +84,41 @@ export default function Search() {
         />
 
         <datalist id="wa-stations">
-          {stations.map((s) => (
+          {points.map((s) => (
             <option key={s.id} value={s.nom} />
           ))}
         </datalist>
+
+        <p className="wa-section-label">Optimiser par</p>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+          {CRITERES.map((c) => {
+            const active = critere === c.id;
+            return (
+              <button
+                type="button"
+                key={c.id}
+                onClick={() => setCritere(c.id)}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                  padding: '10px 8px',
+                  background: active ? 'var(--wa-orange-bg)' : 'var(--wa-surface)',
+                  border: `1px solid ${active ? 'var(--wa-orange)' : 'var(--wa-border-soft)'}`,
+                  borderRadius: 10,
+                  color: active ? 'var(--wa-orange-soft)' : 'var(--wa-text-muted)',
+                  fontSize: 12,
+                  cursor: 'pointer',
+                }}
+              >
+                <i className={`ti ${c.icon}`} style={{ fontSize: 14 }} />
+                {c.label}
+              </button>
+            );
+          })}
+        </div>
 
         <p className="wa-section-label">Destinations populaires</p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>

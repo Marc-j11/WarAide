@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
+import api from '../services/api.js';
 
 export const AuthContext = createContext(null);
 
@@ -8,9 +9,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : { nom: 'Konan', prenom: 'Yao' };
+      return raw ? JSON.parse(raw) : null;
     } catch {
-      return { nom: 'Konan', prenom: 'Yao' };
+      return null;
     }
   });
 
@@ -20,26 +21,37 @@ export function AuthProvider({ children }) {
   }, [user]);
 
   const login = useCallback(async (credentials) => {
-    // Simule une authentification minimale et stocke un objet `user` avec `prenom`.
-    const prenom =
-      credentials?.prenom || (credentials?.email ? credentials.email.split('@')[0] : 'Utilisateur');
-    const nom = credentials?.nom || '';
-    const userObj = { nom, prenom, email: credentials?.email };
+    if (api.isConfigured()) {
+      const { user: u } = await api.login(credentials);
+      setUser(u);
+      return u;
+    }
+    const prenom = credentials?.email?.split('@')[0] || 'Utilisateur';
+    const userObj = { prenom, nom: '', email: credentials?.email };
     setUser(userObj);
     return userObj;
   }, []);
 
   const register = useCallback(async ({ name, email, password }) => {
-    // Simule une création de compte basique — on extrait prénom/nom depuis `name`.
+    if (api.isConfigured()) {
+      const { user: u } = await api.register({ name, email, password });
+      setUser(u);
+      return u;
+    }
     const parts = (name || '').trim().split(/\s+/);
-    const prenom = parts[0] || (email ? email.split('@')[0] : 'Utilisateur');
-    const nom = parts.slice(1).join(' ') || '';
-    const userObj = { nom, prenom, email };
+    const userObj = {
+      prenom: parts[0] || 'Utilisateur',
+      nom: parts.slice(1).join(' '),
+      email,
+    };
     setUser(userObj);
     return userObj;
   }, []);
 
-  const logout = useCallback(() => setUser(null), []);
+  const logout = useCallback(() => {
+    api.logout();
+    setUser(null);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser, login, register, logout }}>
